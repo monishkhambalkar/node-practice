@@ -26,3 +26,5 @@
 
 //npm run start
 //npm run dev
+
+// add git ignore file for node_module folder
