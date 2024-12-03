@@ -6,6 +6,8 @@
 
 //touch index.js
 
+// touch .gitignore
+
 //const express = require('express');
 // const app = express();
 // const port = 3000;
@@ -28,3 +30,9 @@
 //npm run dev
 
 // add git ignore file for node_module folder
+
+// increase FileSystem
+// cat /proc/sys/fs/inotify/max_user_watches
+//fs.inotify.max_user_watches=524288
+//fs.inotify.max_user_watches = 524288
+//fs.inotify.max_user_watches=524288
