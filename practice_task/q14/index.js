@@ -12,9 +12,11 @@ app.use(bodyParser.json());
 
 // Mock user database
 const users = [];
+const refreshToken = [];
 
 // Secret key for JWT
 const JWT_SECRET = "your_jwt_secret_key";
+const REFRESH_TOKEN = "your_refresh_secret_key";
 
 // Route: User Registration
 app.post("/register", async (req, res) => {
@@ -63,11 +65,14 @@ app.post("/login", async (req, res) => {
   }
 
   // Generate JWT
-  const token = jwt.sign({ username: user.username }, JWT_SECRET, {
+  const accessToken = jwt.sign({ username: user.username }, JWT_SECRET, {
     expiresIn: "1h",
   });
 
-  res.json({ message: "Login successful.", token });
+  const refreshToken = jwt.sign({ username: user.username }, REFRESH_TOKEN, {
+    expiresIn: "7d",
+  });
+  res.json({ message: "Login successful.", accessToken, refreshToken });
 });
 
 // Middleware: Authenticate Token
@@ -81,6 +86,11 @@ function authenticateToken(req, res, next) {
 
   jwt.verify(token, JWT_SECRET, (err, user) => {
     if (err) {
+      if (err.name === "TokenExpiredError") {
+        return res
+          .status(401)
+          .json({ message: "Access token expire, please refresh your token " });
+      }
       return res.status(403).json({ message: "Invalid or expired token." });
     }
 
@@ -88,6 +98,39 @@ function authenticateToken(req, res, next) {
     next();
   });
 }
+
+// Route: Refresh Token
+app.post("/refresh-token", (req, res) => {
+  const { token } = req.body;
+  if (!token) {
+    return res.status(400).json({ message: "refresh token required" });
+  }
+  if (!refreshToken.includes(token)) {
+    return res.status(403).json({ message: "invalid refresh token" });
+  }
+  jwt.verify(token, REFRESH_TOKEN, (err, user) => {
+    if (err) {
+      return res.status(403).json({ message: "invalid refresh token" });
+    }
+    const newAccessToken = jwt.sign({ username: user.username }, JWT_SECRET, {
+      expiresIn: "1h",
+    });
+    res.json({ accessToken: newAccessToken });
+  });
+});
+
+// Route: Logout
+app.post("/logout", (req, res) => {
+  const { token } = req.body;
+  if (!token) {
+    return res
+      .status(400)
+      .json({ message: "Refresh token required for logout" });
+  }
+  refreshToken = refreshToken.filter((rt) => rt !== token);
+  res.json;
+  ({ message: "Logout successfully" });
+});
 
 // Route: Protected Resource
 app.get("/protected", authenticateToken, (req, res) => {
