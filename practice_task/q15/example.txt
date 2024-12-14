@@ -1,0 +1,7 @@
+1.5.6 Stream Result Handling Pattern
+Node.js Client API functions return an object with a stream method that returns a Readable stream
+on the results from MarkLogic. Streams enable you to process results incrementally. Consider
+using streaming if you’re reading a large number of documents or if your documents are large.
+Streams can provide better throughput at lower memory overhead than the Promises when you’re
+working with large amounts of data because result data can be processed as it is received from
+MarkLogic Server.
