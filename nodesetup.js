@@ -46,3 +46,5 @@
 // npm install bcrypt body-parser
 
 // npm init -y && npm install express jsonwebtoken bcrypt body-parser axios && npm install --save-dev nodemon
+
+// npm install express multer
