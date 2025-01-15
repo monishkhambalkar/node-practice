@@ -1,0 +1,3 @@
+Hello, this is streaming data.
+This content will be transformed to uppercase.
+Enjoy the real-time data processing!
