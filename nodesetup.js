@@ -10,6 +10,10 @@
 
 // touch question.js
 
+// npm install express express-rate-limit
+
+// npm install express express-rate-limit ioredis rate-limit-redis
+
 // add git ignore file for node_module folder
 
 // increase FileSystem
