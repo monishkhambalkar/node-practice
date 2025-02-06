@@ -1,0 +1,9 @@
+[2025-02-06T03:23:00.034Z] [INFO] Server is running on http://localhost:3026 
+[2025-02-06T03:23:11.372Z] [INFO] GET / 
+[2025-02-06T03:23:11.374Z] [INFO] Home route accessed 
+[2025-02-06T03:23:11.622Z] [INFO] GET /favicon.ico 
+[2025-02-06T03:23:20.832Z] [INFO] GET /info 
+[2025-02-06T03:23:25.032Z] [INFO] GET /warn 
+[2025-02-06T03:23:25.033Z] [WARN] Warning endpoint accessed 
+[2025-02-06T03:23:33.097Z] [INFO] GET /error 
+[2025-02-06T03:23:33.097Z] [ERROR] Error endpoint triggered 
